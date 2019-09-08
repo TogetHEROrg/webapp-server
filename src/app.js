@@ -81,6 +81,7 @@ app.post('/user', (req, res) => {
             nombre: req.body.nombre,
             password: req.body.password
         };
+        Alertas.create(req.body.tipo, req.body.nombre, req.body.password, req.body.telefono); 
         respuesta = {
             error: false,
             codigo: 200,
@@ -92,7 +93,7 @@ app.post('/user', (req, res) => {
 
 app.post('/emergency', (req, res) => {
     var fecha = new Date();
-        Alertas.create(EMERGENCY, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
+    Alertas.create(EMERGENCY, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
     respuesta = {
         error: false,
         codigo: 200,
