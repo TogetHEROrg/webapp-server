@@ -85,7 +85,7 @@ app.post('/user', (req, res) => {
 //Enviar alerta de emergencia
 app.post('/emergency', (req, res) => {
     var fecha = new Date();
-        Alertas.create(EMERGENCY, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
+    Alertas.create(EMERGENCY, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
     respuesta = {
         error: false,
         codigo: 200,
