@@ -5,7 +5,7 @@ class Usuarios {
 
 	create(tipo, nombre, clave, telefono) {
 		return this.dao.run(`INSERT INTO Usuarios (Tipo, Nombre, Clave, Telefono, FirebaseToken)
-			VALUES (?, ?, ?, ?, '')`, [tipo, nombre, clave, telefono);
+			VALUES (?, ?, ?, ?, '')`, [tipo, nombre, clave, telefono]);
 	}
 
 	delete(id) {
