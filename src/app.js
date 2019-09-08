@@ -8,6 +8,10 @@ const app = express();
 const db = new DB();
 const Alertas = new AlertasDB(db);
 
+const EMERGENCY = 1;
+const ALERT = 2;
+
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -88,7 +92,7 @@ app.post('/user', (req, res) => {
 
 app.post('/emergency', (req, res) => {
     var fecha = new Date();
-    var horaActual = fecha.getHours();
+        Alertas.create(EMERGENCY, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
     respuesta = {
         error: false,
         codigo: 200,
@@ -105,11 +109,13 @@ app.post('/alert', (req, res) => {
             mensaje: 'Faltan datos'
         }
     } else {
+        var fecha = new Date();
+        Alertas.create(ALERT, fecha, req.body.descripcion, req.body.usuario, req.body.telefono, req.body.uLongitud, req.body.uLatitud);
         respuesta = {
             error: false,
             codigo: 200,
             mensaje: ''
-        }   
+        };   
     }
     res.send(respuesta)
 })
@@ -130,6 +136,7 @@ app.post('/login', (req, res) => {
     }
     res.send(respuesta);
 })
+
 
 app.listen(3001, () => {
     console.log('Se levanto en 3001');    
