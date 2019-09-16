@@ -8,13 +8,15 @@ const app = express();
 const db = new DB();
 const Alertas = new AlertasDB(db);
 const Usuarios = new UsuariosDB(db);
+const port = process.env.PORT || 3001;
 
+//niveles de alerta
 const EMERGENCY = 1;
 const ALERT = 2;
 
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -56,6 +58,7 @@ app.use(function(req, res, next) {
 //     });
 // });
 
+//Obtener alertas
 app.get('/alertas', (req, res) => {
     Alertas.getAll()
     .then((alertas) => {
@@ -119,8 +122,9 @@ app.post('/alert', (req, res) => {
     res.send(respuesta)
 })
 
-// // app.post('/login', (req, res) => {
-//     // if (!req.body.user|| !req.body.password) {
+//login valida se ingrese usuario y password
+// app.post('/login', (req, res) => {
+//     if (!req.body.user || !req.body.password) {
 //         respuesta = {
 //             error: true,
 //             codigo: 400,
@@ -136,7 +140,6 @@ app.post('/alert', (req, res) => {
 //     res.send(respuesta);
 // })
 
-
-app.listen(3001, () => {
-    console.log('Se levanto en 3001');    
+app.listen(port, () => {
+    console.log(`Se levanto en server en puerto ${port}`);    
 });
